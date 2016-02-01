@@ -1,42 +1,48 @@
-(function($){
+function work_with($){
 
     $.inf_load = function loadp(cur_p, content, limit){
 
         // hold the continuously coming content
         var $place = $(content).parent();
 
-        // hold the pagination bar
-        var $tmp = $('<div/>').hide();
-        $place.prepend($tmp);
+        limit = (limit || 99);
 
-        // 
-        var page_bar_class = '.' + $(cur_p).parent().closest("[class]").attr("class");
-
-        // loaded pages
-        var count = 1;
-        limit = limit || 99;
-
-        function _loadp(){
-
+        function newContent(){
             var $d = $('<div/>');
             $place.append($d);
-
-            $d.load(link + ' ' + content);
-
-            $tmp.load(link + ' ' + page_bar_class, nextLinkAndLoad);
-
+            return $d;
         }
 
-        function nextLinkAndLoad(){
-            link = $(this).find(cur_p).next().attr('href');
-            count++;
+        function next_link(doc){
+            var l = $(doc).find(cur_p).next().attr('href');
+            return l;
+        }
+
+        function process_page(data){
+            $place.append($(data).find(content));
+            link = next_link(data);
+            limit--;
             console.log(link);
-            if(!link || count > limit) return;
-            _loadp();
+            if(!link || limit == 0) return;
+            _loadp(link);
         }
-        
-        nextLinkAndLoad.apply(document);
+
+        function _loadp(link){
+            $.get(link, process_page);
+        }
+
+        _loadp(next_link(document));
 
     }
 
-})(jQuery);
+    $.inf_load(".page_css b", ".Mid2L_con");
+    $.inf_load(".page_active", ".center");
+
+}
+
+function suc(){
+    o_j = window.jQuery.noConflict();
+    work_with(o_j);
+}
+
+jQuery.getScript('https://code.jquery.com/jquery-1.8.3.min.js', suc);
