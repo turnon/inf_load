@@ -45,4 +45,7 @@ function suc(){
     work_with(o_j);
 }
 
-jQuery.getScript('https://code.jquery.com/jquery-1.8.3.min.js', suc);
+(function(){
+    var cdn = 'https://code.jquery.com/jquery-1.8.3.min.js';
+    jQuery.fn.jquery.match(/1\.8/) ? work_with(jQuery) : jQuery.getScript(cdn, suc) ;
+})();
