@@ -1,3 +1,25 @@
+function selectors() {
+
+    var supported = {
+        gamersky: [".page_css b", ".Mid2L_con"],
+        wallpaperscraft: [".page_active", ".center", 10],
+    }
+
+    var url = window.location.host;
+    var selector = null;
+
+    for (var pattern in supported) {
+        var re = new RegExp(pattern);
+        if (url.match(re)) {
+            selector = supported[pattern];
+            console.log(pattern, selector);
+            break;
+        }
+    }
+
+    return selector;
+}
+
 function work_with($){
 
     $.inf_load = function loadp(cur_p, content, limit){
@@ -35,8 +57,11 @@ function work_with($){
 
     }
 
-    $.inf_load(".page_css b", ".Mid2L_con");
-    $.inf_load(".page_active", ".center");
+    var slt = selectors();
+
+    if(slt){
+        $.inf_load.apply(null, slt);
+    }
 
 }
 
