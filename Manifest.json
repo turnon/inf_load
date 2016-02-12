@@ -1,0 +1,21 @@
+{
+
+  "manifest_version": 2,
+  "name": "infinitely load pages",
+  "description": "infinitely load pages",
+  "version": "0.1",
+  
+  "content_scripts": [
+    {
+      "js": [
+        "jquery-1.8.3.min.js",
+        "infinitely_load.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ]
+  
+}

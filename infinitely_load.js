@@ -40,12 +40,7 @@ function work_with($){
 
 }
 
-function suc(){
-    o_j = window.jQuery.noConflict();
-    work_with(o_j);
-}
-
-(function(){
-    var cdn = 'https://code.jquery.com/jquery-1.8.3.min.js';
-    jQuery.fn.jquery.match(/1\.8/) ? work_with(jQuery) : jQuery.getScript(cdn, suc) ;
-})();
+jQuery(document).ready(function(){
+    console.log('ready');
+    work_with(jQuery);
+});
