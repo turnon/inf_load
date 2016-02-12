@@ -36,6 +36,7 @@ function work_with($){
         }
 
         function next_link(doc){
+            if(--limit == 0) return;
             var l = $(doc).find(cur_p).next().attr('href');
             return l;
         }
@@ -43,9 +44,8 @@ function work_with($){
         function process_page(data){
             $place.append($(data).find(content));
             link = next_link(data);
-            limit--;
             console.log(link);
-            if(!link || limit == 0) return;
+            if(!link) return;
             _loadp(link);
         }
 
