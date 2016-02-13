@@ -22,35 +22,27 @@ function selectors() {
 
 function work_with($){
 
-    $.inf_load = function loadp(cur_p, content, limit){
+    function loadp(cur_p, content, limit){
 
         // hold the continuously coming content
         var $place = $(content).parent();
 
         limit = (limit || 99);
 
-        function newContent(){
-            var $d = $('<div/>');
-            $place.append($d);
-            return $d;
-        }
-
         function next_link(doc){
             if(--limit == 0) return;
-            var l = $(doc).find(cur_p).next().attr('href');
-            return l;
+            var link = $(doc).find(cur_p).next().attr('href');
+            console.log(link);
+            return link;
         }
 
         function process_page(data){
             $place.append($(data).find(content));
-            link = next_link(data);
-            console.log(link);
-            if(!link) return;
-            _loadp(link);
+            _loadp(next_link(data));
         }
 
         function _loadp(link){
-            $.get(link, process_page);
+            link && $.get(link, process_page);
         }
 
         _loadp(next_link(document));
@@ -60,7 +52,7 @@ function work_with($){
     var slt = selectors();
 
     if(slt){
-        $.inf_load.apply(null, slt);
+        loadp.apply(null, slt);
     }
 
 }
