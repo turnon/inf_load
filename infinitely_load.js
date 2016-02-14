@@ -3,6 +3,7 @@ function selectors() {
     var supported = {
         gamersky: [".page_css b", ".Mid2L_con"],
         wallpaperscraft: [".page_active", ".center", 10],
+        yinyuetai: [function($, doc){return $(doc).find(".page-nav span").filter(function(){return $(this).attr('class') == null})}, ".mv_list,.page-nav"],
     }
 
     var url = window.location.host;
@@ -31,7 +32,7 @@ function work_with($){
 
         function next_link(doc){
             if(--limit == 0) return;
-            var link = $(doc).find(cur_p).next().attr('href');
+            var link = ((typeof cur_p == "function") ? cur_p($, doc) : $(doc).find(cur_p)).next().attr('href');
             console.log(link);
             return link;
         }
