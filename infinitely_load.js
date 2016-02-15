@@ -5,6 +5,7 @@ function selectors() {
         wallpaperscraft: [".page_active", ".center", 10],
         yinyuetai: [function($, doc){return $(doc).find(".page-nav span").filter(function(){return $(this).attr('class') == null})}, ".mv_list,.page-nav"],
         "tieba\.baidu\.com\/p": ['.pb_footer .tP', '.pb_content,.pb_footer'],
+        ituring: ['.PagedList-currentPage', '#mainbar', 5],
     }
 
     var url = window.location.href;
@@ -33,7 +34,8 @@ function work_with($){
 
         function next_link(doc){
             if(--limit == 0) return;
-            var link = ((typeof cur_p == "function") ? cur_p($, doc) : $(doc).find(cur_p)).next().attr('href');
+            var $nex_p = ((typeof cur_p == "function") ? cur_p($, doc) : $(doc).find(cur_p)).next();
+            var link = ($nex_p.is('a') ? $nex_p : $nex_p.find('a')).attr('href');
             console.log(link);
             return link;
         }
