@@ -3,12 +3,13 @@
   "manifest_version": 2,
   "name": "infinitely load pages",
   "description": "infinitely load pages",
-  "version": "0.1",
+  "version": "0.2",
   
   "content_scripts": [
     {
       "js": [
         "jquery-1.8.3.min.js",
+        "supported.js",
         "infinitely_load.js"
       ],
       "matches": [
